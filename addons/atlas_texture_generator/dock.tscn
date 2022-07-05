@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/atlas_texture_generator/dock.gd" type="Script" id=1]
+
+[node name="TextureAtlaser" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutputFileDialog" type="FileDialog" parent="."]
+margin_right = 768.0
+margin_bottom = 512.0
+window_title = "Select textures for atlas"
+mode_overrides_title = false
+filters = PoolStringArray( "*.png" )
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_right = 768.0
+margin_bottom = 512.0
+window_title = "Select textures for atlas"
+mode_overrides_title = false
+mode = 1
+filters = PoolStringArray( "*.png" )
+
+[node name="Input" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectPath" type="Button" parent="Input"]
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 128, 24 )
+text = "Select output filepath"
+
+[node name="FilePath" type="LineEdit" parent="Input"]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 52.0
+editable = false
+placeholder_text = "Output texture filepath"
+
+[node name="MakeAtlas" type="Button" parent="Input"]
+margin_top = 56.0
+margin_right = 1024.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 128, 24 )
+text = "Make atlas"
+[connection signal="confirmed" from="OutputFileDialog" to="." method="_on_OutputFileDialog_confirmed"]
+[connection signal="confirmed" from="FileDialog" to="." method="_on_FileDialog_confirmed"]
+[connection signal="files_selected" from="FileDialog" to="." method="_on_FileDialog_files_selected"]
+[connection signal="pressed" from="Input/SelectPath" to="." method="_on_SelectPath_pressed"]
+[connection signal="pressed" from="Input/MakeAtlas" to="." method="_on_MakeAtlas_pressed"]
